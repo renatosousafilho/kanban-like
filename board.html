@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Hello Angular</title>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/angular-drag-and-drop-lists.min.js"></script>
+		<script type="text/javascript" src="js/board.js"></script>
+
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="css/board.css">
+	</head>
+	<body ng-app="board">
+		<div class="container" ng-controller="boardController" style="margin-top: 20px">
+			<div ng-view class="simpleDemo">
+				<div ng-repeat="(listName, list) in models.lists" class="col-md-4">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">{{listName}}</h3>	
+						</div>
+						<div class="panel-body" ng-include="'simple.html'"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
