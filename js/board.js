@@ -6,17 +6,15 @@ angular.module("board").factory('Task', function($resource){
 
 angular.module("board").
     controller('boardController', function($scope, Task){
-        $scope.tasks = Task.query();
 
         $scope.models = {
             selected: null,
             lists: { 'todo': [], "doing": [], "done": []}
         };
 
-        // Não está executando este loop
-        $scope.tasks.forEach(function(task){
-            console.log(task);
-            $scope.models.lists.todo.push({label: task.title});
+        var tasks = Task.query(function(){
+            tasks.forEach(function(task){
+                $scope.models.lists.todo.push({label: task.title});
+            });
         });
-
     });
