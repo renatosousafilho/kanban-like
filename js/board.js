@@ -1,18 +1,22 @@
-angular.module("board", ["dndLists"]);
+angular.module("board", ["dndLists", "ngResource"]);
+
+angular.module("board").factory('Task', function($resource){
+    return $resource("http://localhost:3000/api/tasks/:id");
+});
+
 angular.module("board").
-    controller('boardController', function($scope){
+    controller('boardController', function($scope, Task){
+        $scope.tasks = Task.query();
+
         $scope.models = {
             selected: null,
-            lists: { 'A': [], "B": [], "C": []}
+            lists: { 'todo': [], "doing": [], "done": []}
         };
 
-        for (var i=1; i<=3; ++i) {
-            $scope.models.lists.A.push({label: "Item A" +i});
-            $scope.models.lists.B.push({label: "Item B" +i});
-            $scope.models.lists.C.push({label: "Item C" +i});
-        }
+        // Não está executando este loop
+        $scope.tasks.forEach(function(task){
+            console.log(task);
+            $scope.models.lists.todo.push({label: task.title});
+        });
 
-        $scope.$watch('models', function(model){
-            $scope.modelAsJson = angular.toJson(model, true);
-        }, true);
     });
