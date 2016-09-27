@@ -13,7 +13,6 @@
 	</head>
 	<body ng-app="board">
 		<div class="container" ng-controller="boardController" style="margin-top: 20px">
-			{{tasks}}
 			<div ng-view class="simpleDemo">
 				<div ng-repeat="(listName, list) in models.lists" class="col-md-4">
 					<div class="panel panel-info">

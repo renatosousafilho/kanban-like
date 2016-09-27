@@ -12,9 +12,30 @@ angular.module("board").
             lists: { 'todo': [], "doing": [], "done": []}
         };
 
+        $scope.dropCallback = function(list, item, index) {
+            return item;
+        }
+
+
         var tasks = Task.query(function(){
             tasks.forEach(function(task){
-                $scope.models.lists.todo.push({label: task.title});
+                $scope.models.lists.todo.push(task);
             });
         });
+
+        $scope.$watch('models.lists.todo', function(newValue, oldValue, scope){
+            // submit to action to save in done
+            console.log(newValue);
+        }, true);
+
+        $scope.$watch('models.lists.doing', function(newValue, oldValue, scope){
+            // submit to action to save in done
+            console.log(newValue);
+        }, true);
+
+        $scope.$watch('models.lists.done', function(newValue, oldValue, scope){
+            // submit to action to save in done
+            console.log(newValue);
+        }, true);
+
     });
