@@ -1,7 +1,15 @@
 angular.module("board", ["dndLists", "ngResource"]);
 
 angular.module("board").factory('Task', function($resource){
-    return $resource("http://localhost:3000/api/tasks/:id");
+    return $resource("http://localhost:3000/api/tasks/:id", {}, {
+        create: {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            isArray: true
+        }
+    });
 });
 
 angular.module("board").
@@ -25,17 +33,20 @@ angular.module("board").
 
         $scope.$watch('models.lists.todo', function(newValue, oldValue, scope){
             // submit to action to save in done
-            console.log(newValue);
+            params = JSON.stringify($scope.models.lists.todo);
+            Task.create(params);
         }, true);
 
         $scope.$watch('models.lists.doing', function(newValue, oldValue, scope){
             // submit to action to save in done
-            console.log(newValue);
+            params = JSON.stringify($scope.models.lists.doing);
+            Task.create(params);
         }, true);
 
         $scope.$watch('models.lists.done', function(newValue, oldValue, scope){
             // submit to action to save in done
-            console.log(newValue);
+            params = JSON.stringify($scope.models.lists.doing);
+            Task.create(params);
         }, true);
 
     });
